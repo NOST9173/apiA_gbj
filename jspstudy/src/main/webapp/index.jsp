@@ -20,7 +20,7 @@
 
 
 <h1 style="text-align:center;">수정한 페이지dfdfdfdfdfdff </h1>
-
+<!-- 괴도 이젠 -->
 <table border="1" width="400px" style="text-align:center; border-collapse: collapse; margin-left: auto; margin-right: auto; " >
 <tr>
 	<td><a href="<%=request.getContextPath() %>/member/memberJoin.do" class="btton" >회원 가입</a></td>

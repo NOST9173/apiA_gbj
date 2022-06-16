@@ -19,7 +19,7 @@
 %>
 
 
-<h1 style="text-align:center;">수정한 페이지111111111111</h1>
+<h1 style="text-align:center;">수정 수정 수정 </h1>
 <!-- 괴도 이젠 -->
 <table border="1" width="400px" style="text-align:center; border-collapse: collapse; margin-left: auto; margin-right: auto; " >
 <tr>

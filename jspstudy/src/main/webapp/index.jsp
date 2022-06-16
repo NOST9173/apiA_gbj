@@ -19,7 +19,7 @@
 %>
 
 
-<h1 style="text-align:center;">수정한 페이지 </h1>
+<h1 style="text-align:center;">수정한 페이지dfdfdfdfdfdff </h1>
 
 <table border="1" width="400px" style="text-align:center; border-collapse: collapse; margin-left: auto; margin-right: auto; " >
 <tr>

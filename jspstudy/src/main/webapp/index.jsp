@@ -22,18 +22,18 @@
 <h1 style="text-align:center;">수정 수정 수정 </h1>
 <!-- 괴도 이젠 -->
 <table border="1" width="400px" style="text-align:center; border-collapse: collapse; margin-left: auto; margin-right: auto; " >
-<tr>
-	<td><a href="<%=request.getContextPath() %>/member/memberJoin.do" class="btton" >회원 가입</a></td>
-	<td><a href="<%=request.getContextPath() %>/member/memberList.do" class="btton">회원 리스트</a></td>
-</tr>
-<tr>
-	<td><a href="<%=request.getContextPath() %>/member/memberLogin.do" class="btton">로그인</a></td>
-	<td><a href="<%=request.getContextPath() %>/member/memberList.do" class="btton"></a></td>
-</tr>
-<tr>
-	<td><a href="<%=request.getContextPath() %>/board/boardWrite.do" class="btton">게시판 글 작성</a></td>
-	<td><a href="<%=request.getContextPath() %>/board/boardList.do" class="btton">게시판 리스트</a></td>
-</tr>
+	<tr>
+		<td><a href="<%=request.getContextPath() %>/member/memberJoin.do" class="btton" >회원 가입</a></td>
+		<td><a href="<%=request.getContextPath() %>/member/memberList.do" class="btton">회원 리스트</a></td>
+	</tr>
+	<tr>
+		<td><a href="<%=request.getContextPath() %>/member/memberLogin.do" class="btton">로그인</a></td>
+		<td><a href="<%=request.getContextPath() %>/member/memberList.do" class="btton"></a></td>
+	</tr>
+	<tr>
+		<td><a href="<%=request.getContextPath() %>/board/boardWrite.do" class="btton">게시판 글 작성</a></td>
+		<td><a href="<%=request.getContextPath() %>/board/boardList.do" class="btton">게시판 리스트</a></td>
+	</tr>
 
 
 </table>

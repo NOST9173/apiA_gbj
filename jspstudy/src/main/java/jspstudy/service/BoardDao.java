@@ -11,18 +11,18 @@ import jspstudy.domain.BoardVo;
 import jspstudy.domain.Criteria;
 import jspstudy.domain.SearchCriteria;
 
-//1¹ø
+//1ï¿½ï¿½
 public class BoardDao {
-	// 5¹ø
+	// 5ï¿½ï¿½
 	Connection conn;
-	// 6¹ø
+	// 6ï¿½ï¿½
 	PreparedStatement pstmt;
 
-	// 2¹ø
+	// 2ï¿½ï¿½
 	public BoardDao() {
-		// 3¹ø
+		// 3ï¿½ï¿½
 		Dbconn db = new Dbconn();
-		// 4¹ø
+		// 4ï¿½ï¿½
 		this.conn = db.getConnection();
 
 	}
@@ -32,11 +32,11 @@ public class BoardDao {
 		// 7-3
 		int value = 0;
 
-		// 8¹ø
-		String sql = "INSERT INTO a_board(bidx, originbidx,depth,level_, subject, content, writer, ip, midx, filename)"
-				+ "VALUES (bidx_b_seq.nextval,bidx_b_seq.nextval,0,0,?,?,?,?,?,? )";
+		// 8ï¿½ï¿½
+		String sql = "INSERT INTO a_board(originbidx,depth,level_, subject, content, writer, ip, midx, filename)"
+				+ "VALUES (0,0,0,?,?,?,?,?,? )";
 
-		// 9¹ø
+		// 9ï¿½ï¿½
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, subject);
@@ -50,18 +50,17 @@ public class BoardDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 10¹ø
+		} finally { 
 
-			try {// 11-3 11-1¿¡ »¡°£ÁÙ ¶ß¸é ¸¶¿ì½º ¿Ã·Á¼­ try·Î ¹­´Â´Ù.
-				pstmt.close(); // 11-1
-				conn.close(); // 11-2
+			try {
+				pstmt.close(); 
+				conn.close(); 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
 		}
 
-		// 7-2 // 9-4 value°ªÀ» return ½ÃÅ²´Ù
 		return value;
 	}
 
@@ -76,21 +75,21 @@ public class BoardDao {
 			str = "and writer like ?";
 		}
 //		String sql = "select * from a_board where delyn='N' order by originbidx desc, depth asc";
-		String sql = "SELECT * FROM (SELECT ROWNUM AS rnum, A.* FROM (SELECT * FROM a_board WHERE delyn='N' " + str
-				+ " ORDER BY ORIGINbidx desc, depth ASC) A)B WHERE rnum BETWEEN ? AND ?";
+//		String sql = "SELECT * FROM (SELECT ROWNUM AS rnum, A.* FROM (SELECT * FROM a_board WHERE delyn='N' " + str
+//				+ " ORDER BY ORIGINbidx desc, depth ASC) A)B WHERE rnum BETWEEN ? AND ?";
+		String sql = "SELECT * FROM a_board where delyn='N' order by originbidx desc, depth asc ";
 
 		try {
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + scri.getKeyword() + "%");
-			pstmt.setInt(2, (scri.getPage() - 1) * 15 + 1);
-			pstmt.setInt(3, (scri.getPage() * 15));
+//			pstmt.setString(1, "%" + scri.getKeyword() + "%");
+//			pstmt.setInt(2, (scri.getPage() - 1) * 15 + 1);
+//			pstmt.setInt(3, (scri.getPage() * 15));
 			rs = pstmt.executeQuery();
 
-			// ´ÙÀ½ °ªÀÌ Á¸ÀçÇÏ¸é trueÀÌ°í ±× ÇàÀ¸·Î Ä¿¼­°¡ ÀÌµ¿ÇÑ´Ù
 			while (rs.next()) {
 				BoardVo bv = new BoardVo();
-				bv.setBidx(rs.getInt("bidx")); // rs¿¡ º¹»çµÈ bidx¸¦ bv¿¡ ¿Å°Ü´ã´Â´Ù.
+				bv.setBidx(rs.getInt("bidx")); // 
 				bv.setSubject(rs.getString("subject"));
 				bv.setWriter(rs.getString("writer"));
 				bv.setWriteday(rs.getString("writeday"));
@@ -98,7 +97,7 @@ public class BoardDao {
 				bv.setDepth(rs.getInt("depth"));
 				bv.setOriginbidx(0);
 
-				alist.add(bv); // °¢°¢ÀÇ bv°´Ã¼¸¦ alist¿¡ Ãß°¡ÇÑ´Ù
+				alist.add(bv); // 
 			}
 
 		} catch (SQLException e) {
@@ -135,7 +134,7 @@ public class BoardDao {
 				bv.setSubject(rs.getString("subject"));
 				bv.setContent(rs.getString("content"));
 				bv.setWriter(rs.getString("writer"));
-				bv.setWriteday(rs.getNString("writeday"));
+				bv.setWriteday(rs.getString("writeday"));
 				bv.setFilename(rs.getString("filename"));
 
 			}
@@ -146,13 +145,13 @@ public class BoardDao {
 	}
 
 	public int modifyBoard(String subject, String content, String writer, int bidx) {
-		// 7-3
+
 		int value = 0;
 
-		// 8¹ø
+
 		String sql = "update a_board set subject=?, content=?, writer=?, writeday=sysdate where bidx=?";
 
-		// 9¹ø
+	
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, subject);
@@ -164,16 +163,16 @@ public class BoardDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 10¹ø
+		} finally { 
 
-			try {// 11-3 11-1¿¡ »¡°£ÁÙ ¶ß¸é ¸¶¿ì½º ¿Ã·Á¼­ try·Î ¹­´Â´Ù.
-				pstmt.close(); // 11-1
-				conn.close(); // 11-2
+			try {
+				pstmt.close(); 
+				conn.close(); 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		// 7-2 // 9-4 value°ªÀ» return ½ÃÅ²´Ù
+		
 		return value;
 	}
 
@@ -181,10 +180,10 @@ public class BoardDao {
 		// 7-3
 		int value = 0;
 
-		// 8¹ø
+		// 8ï¿½ï¿½
 		String sql = "update a_board set delyn='Y' where bidx=?";
 
-		// 9¹ø
+		// 9ï¿½ï¿½
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bidx);
@@ -193,9 +192,9 @@ public class BoardDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 10¹ø
+		} finally { // 10ï¿½ï¿½
 
-			try {// 11-3 11-1¿¡ »¡°£ÁÙ ¶ß¸é ¸¶¿ì½º ¿Ã·Á¼­ try·Î ¹­´Â´Ù.
+			try {// 11-3 11-1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½Ã·ï¿½ï¿½ï¿½ tryï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 				pstmt.close(); // 11-1
 				conn.close(); // 11-2
 			} catch (SQLException e) {
@@ -204,7 +203,7 @@ public class BoardDao {
 
 		}
 
-		// 7-2 // 9-4 value°ªÀ» return ½ÃÅ²´Ù
+		// 7-2 // 9-4 valueï¿½ï¿½ï¿½ï¿½ return ï¿½ï¿½Å²ï¿½ï¿½
 		return value;
 	}
 
@@ -212,19 +211,17 @@ public class BoardDao {
 		// 7-3
 		int value = 0;
 
-		// 8¹ø
+		// 8ï¿½ï¿½
 		String sql1 = "update a_board set depth=depth+1 where originbidx=? and depth > ?";
 		String sql2 = "insert into a_board(bidx, originbidx, depth, level_, subject, content, writer, ip, midx)"
 				+ "VALUES (bidx_b_seq.nextval,?,?,?,?,?,?,?,? )";
 
-		// 9¹ø
 		try {
-			// ¡é Æ®·£Àè¼Ç
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(sql1);
 			pstmt.setInt(1, bv.getOriginbidx());
 			pstmt.setInt(2, bv.getDepth());
-			// 9-3
+
 			value = pstmt.executeUpdate();
 
 			pstmt = conn.prepareStatement(sql2);
@@ -242,7 +239,6 @@ public class BoardDao {
 			conn.commit();
 
 		} catch (SQLException e) {
-			// ½ÇÇàÇÏ´Ù°¡ Àß¸øµÇ¾î Á¤»óÀûÀ¸·Î ½ÇÇàÀÌ µÇÁö ¾Ê´Â´Ù¸é ¾Æ·¡ÀÇ conn.rollbackÀ¸·Î µ¹·Á³õ´Â´Ù.
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -250,18 +246,17 @@ public class BoardDao {
 			}
 
 			e.printStackTrace();
-		} finally { // 10¹ø
+		} finally { 
 
-			try {// 11-3 11-1¿¡ »¡°£ÁÙ ¶ß¸é ¸¶¿ì½º ¿Ã·Á¼­ try·Î ¹­´Â´Ù.
-				pstmt.close(); // 11-1
-				conn.close(); // 11-2
+			try {
+				pstmt.close(); 
+				conn.close(); 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
 		}
 
-		// 7-2 // 9-4 value°ªÀ» return ½ÃÅ²´Ù
 		return value;
 	}
 

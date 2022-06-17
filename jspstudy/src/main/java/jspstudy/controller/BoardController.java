@@ -34,11 +34,11 @@ public class BoardController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// ¡éDB·Î Àü¼ÛÇÒ¶§ ÇÑ±Û ±úÁöÁö ¾Êµµ·Ï ÇÏ´Â ±¸¹® ¡é¡é
+		// ï¿½ï¿½DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½Ñ±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
-		//°¡»ó°æ·Î ÃßÃâ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String uri = request.getRequestURI();
 		String pj= request.getContextPath();
 		String command= uri.substring(pj.length());
@@ -49,13 +49,13 @@ public class BoardController extends HttpServlet {
 
 		if (command.equals("/board/boardWrite.do")){
 
-			System.out.println("°Ô½ÃÆÇ±ÛÀÛ¼º µé¾î¿È");
+			System.out.println("ï¿½Ô½ï¿½ï¿½Ç±ï¿½ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			RequestDispatcher rd = request.getRequestDispatcher("/board/boardWrite.jsp");
 			rd.forward(request, response);
 
 		}else if (command.equals("/board/boardWriteAction.do")) {
 			
-			int sizeLimit = 1024*1024*15;
+			int sizeLimit = 1024*1024;
 			
 			MultipartRequest multi = null;
 			multi = new MultipartRequest(request, saveFullPath, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
@@ -66,13 +66,13 @@ public class BoardController extends HttpServlet {
 			String writer = multi.getParameter("writer");
 			
 			
-			//¿­°ÅÀÚ¿¡ ÀúÀåµÉ ÆÄÀÏÀ» ´ã´Â °´Ã¼¸¦ »ý¼ºÇÑ´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			Enumeration files =  multi.getFileNames();
-			//´ã±ä ÆÄÀÏ °´Ã¼ÀÇ ÆÄÀÏ ÀÌ¸§À» ¾ò´Â´Ù.
+			//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
 			String file = (String)files.nextElement();
-			//ÀúÀåµÇ´Â ÆÄÀÏ ÀÌ¸§
+			//ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 			String fileName = multi.getFilesystemName(file);
-			//¿ø·¡ ÆÄÀÏÀÌ¸§
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 			String originFileName = multi.getOriginalFileName(file);
 			
 			String ip = InetAddress.getLocalHost().getHostAddress();
@@ -90,7 +90,7 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/board/boardWrite.do");
 			}
 		}else if(command.equals("/board/boardList.do")) {
-			System.out.println("¸®½ºÆ® µé¾î¿ÔÀ½");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			
 			String page = request.getParameter("page");
 			if(page == null) {
@@ -108,7 +108,7 @@ public class BoardController extends HttpServlet {
 			scri.setKeyword(keyword);
 			scri.setSearchType(searchType);
 			
-			// Ã³¸®ÇÏ´Â ºÎºÐ 
+			// Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½ 
 
 			BoardDao bd = new BoardDao();
 			int cnt = bd.boardTotal(scri);
@@ -121,51 +121,51 @@ public class BoardController extends HttpServlet {
 			
 			
 			ArrayList<BoardVo> alist = bd.boardSelectAll(scri);
-			request.setAttribute("alist", alist);  			// µ¥ÀÌÅÍ(ÀÚ¿ø) °øÀ¯
+			request.setAttribute("alist", alist);  			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ú¿ï¿½) ï¿½ï¿½ï¿½ï¿½
 			request.setAttribute("pm", pm);
 			
 
 
-			//ÀÌµ¿ÇÏ´Â ºÎºÐ
+			//ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½
 			RequestDispatcher rd = request.getRequestDispatcher("/board/boardList.jsp");
 			rd.forward(request, response);
 
 		} else if (command.equals("/board/boardContent.do")) {
-			System.out.println("³»¿ëº¸±â µé¾î¿ÔÀ½");
-			// 1. parameter°¡ ³Ñ¾î¿È
+			System.out.println("ï¿½ï¿½ï¿½ëº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			// 1. parameterï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½
 			String bidx = request.getParameter("bidx");
 			int bidx_ = Integer.parseInt(bidx);
 
-			// 2. Ã³¸®ÇÔ
+			// 2. Ã³ï¿½ï¿½ï¿½ï¿½
 			BoardDao bd = new BoardDao();
 			BoardVo bv = bd.boardSelectOne(bidx_);
 
-			request.setAttribute("bv", bv);   // ³»ºÎÀûÀ¸·Î ÀÚ¿ø °øÀ¯
+			request.setAttribute("bv", bv);   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-			// 3. ÀÌµ¿ÇÔ
+			// 3. ï¿½Ìµï¿½ï¿½ï¿½
 			RequestDispatcher rd = request.getRequestDispatcher("/board/boardContent.jsp");
 			rd.forward(request, response);
 			
 		} else if (command.equals("/board/boardModify.do")){
-			System.out.println("°Ô½ÃÆÇ ±Û¼öÁ¤ µé¾î¿È");
+			System.out.println("ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		
-			// 1. parameter°¡ ³Ñ¾î¿È
+			// 1. parameterï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½
 						String bidx = request.getParameter("bidx");
 						int bidx_ = Integer.parseInt(bidx);
 
-						// 2. Ã³¸®ÇÔ
+						// 2. Ã³ï¿½ï¿½ï¿½ï¿½
 						BoardDao bd = new BoardDao();
 						BoardVo bv = bd.boardSelectOne(bidx_);
 
-						request.setAttribute("bv", bv);   // ³»ºÎÀûÀ¸·Î ÀÚ¿ø °øÀ¯
+						request.setAttribute("bv", bv);   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-						// 3. ÀÌµ¿ÇÔ
+						// 3. ï¿½Ìµï¿½ï¿½ï¿½
 						RequestDispatcher rd = request.getRequestDispatcher("/board/boardModify.jsp");
 						rd.forward(request, response);
 						
 		}else if (command.equals("/board/boardModifyAction.do")) {
 			
-			System.out.println("°Ô½Ã±Û ¼öÁ¤ µÊ");
+			System.out.println("ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
 			
 			String bidx = request.getParameter("bidx");
 			int bidx_ = Integer.parseInt(bidx);
@@ -185,7 +185,7 @@ public class BoardController extends HttpServlet {
 			}
 			
 		} else if (command.equals("/board/boardDelete.do")) {
-			System.out.println("°Ô½Ã±Û »èÁ¦ µé¾î¿È");
+			System.out.println("ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			
 			String bidx = request.getParameter("bidx");
 			int bidx_ = Integer.parseInt(bidx);
@@ -199,7 +199,7 @@ public class BoardController extends HttpServlet {
 			
 		} else if (command.equals("/board/boardDeleteAction.do")) {
 			
-				System.out.println("°Ô½Ã±Û »èÁ¦ µÊ");
+				System.out.println("ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
 				
 				
 				
@@ -215,9 +215,9 @@ public class BoardController extends HttpServlet {
 				}
 			
 		}else if (command.equals("/board/boardReply.do")) {
-			System.out.println("´äº¯ ÆäÀÌÁö µé¾î¿È");
+			System.out.println("ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			
-			//³Ñ°Ü¾ßÇÒ ¸ñ·Ïµé ¡é
+			//ï¿½Ñ°Ü¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½
 			String bidx = request.getParameter("bidx");
 			String originbidx = request.getParameter("originbidx");
 			String depth = request.getParameter("depth");
@@ -240,10 +240,10 @@ public class BoardController extends HttpServlet {
 			rd.forward(request, response);
 			
 		}else if (command.equals("/board/boardReplyAction.do")) {
-			System.out.println("´äº¯ ¿Ï·á");
+			System.out.println("ï¿½äº¯ ï¿½Ï·ï¿½");
 			
 			
-			//³Ñ°Ü¾ßÇÒ ¸ñ·Ïµé ¡é¡é
+			//ï¿½Ñ°Ü¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½
 			String bidx = request.getParameter("bidx");
 			String originbidx = request.getParameter("originbidx");
 			String depth = request.getParameter("depth");
@@ -258,7 +258,7 @@ public class BoardController extends HttpServlet {
 			HttpSession session = request.getSession();
 			int midx = (int)session.getAttribute("midx");
 			
-			// Ã³¸®ÇÏ´Â ºÎºÐ¿¡¼­ bv¸¦ »ç¿ëÇÏ±â¿¡ bv¸¦ °´Ã¼»ý¼ºÇÏ°í ´à´Â´Ù.
+			// Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ÎºÐ¿ï¿½ï¿½ï¿½ bvï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±â¿¡ bvï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Â´ï¿½.
 			BoardVo bv = new BoardVo();
 			bv.setBidx(Integer.parseInt(bidx));
 			bv.setOriginbidx(Integer.parseInt(originbidx));
@@ -273,7 +273,7 @@ public class BoardController extends HttpServlet {
 			
 			
 			
-			// Ã³¸®ÇÏ´Â ºÎºÐ ¡é
+			// Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½ ï¿½ï¿½
 			BoardDao bd = new BoardDao();
 			bd.replyBoard(bv);
 			int value = bd.replyBoard(bv);
@@ -289,25 +289,25 @@ public class BoardController extends HttpServlet {
 			
 		}else if(command.equals("/board/fileDownload.do")) {
 			
-			//ÆÄÀÏÀÌ¸§À» ³Ñ°Ü¹Þ´Â´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹Þ´Â´ï¿½.
 			String filename = request.getParameter("filename");
-			//ÆÄÀÏÀÇ ÀüÃ¼ °æ·Î
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½
 			String filePath = saveFullPath + File.separator+filename;
 			
 			
-			//ÇØ´çÀ§Ä¡¿¡ ÀÖ´Â ÆÄÀÏÀ» ÀÐ¾î µéÀÎ´Ù.
+			//ï¿½Ø´ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 			FileInputStream fileInputStream = new FileInputStream(filePath);
 			
 			Path source = Paths.get(filePath);
 			String mimeType = Files.probeContentType(source);
-			//Çì´õ Á¤º¸¿¡ ÃßÃâÇÑ ÆÄÀÏ Çü½ÄÀ» ´ã´Â´Ù.
+			//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
 			response.setContentType(mimeType);
 			
 			String sEncoding = new String(filename.getBytes("UTF-8"));
-			//Çì´õÁ¤º¸¿¡ ÆÄÀÏÀÌ¸§À» ´ã´Â´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
 			response.setHeader("Content-Disposition","attachment;fileName="+ sEncoding);
 			
-			//ÆÄÀÏ¾²±â 
+			//ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½ï¿½ 
 			ServletOutputStream servletOutStream = response.getOutputStream();
 			byte[] b = new byte[4096];
 			int read = 0;

@@ -79,7 +79,7 @@ public class BoardDao {
 //				+ " ORDER BY ORIGINbidx desc, depth ASC) A)B WHERE rnum limit ?,?";
 		
 		// 현재 rownum으로 만든 것이 아니라 limit로 일단 해결.
-		String sql = "SELECT * FROM a_board where delyn='N'"+str+" order by originbidx desc, depth asc limit ?,? ";
+		String sql = "SELECT * FROM a_board where delyn='N'"+str+" order by bidx desc, depth asc limit ?,? ";
  
 		try {
 
@@ -151,7 +151,7 @@ public class BoardDao {
 		int value = 0;
 
 
-		String sql = "update a_board set subject=?, content=?, writer=?, writeday=sysdate where bidx=?";
+		String sql = "update a_board set subject=?, content=?, writer=?, writeday=datetime default now() where bidx=?";
 
 	
 		try {

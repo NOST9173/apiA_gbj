@@ -43,18 +43,19 @@ public class BoardController extends HttpServlet {
 		String pj= request.getContextPath();
 		String command= uri.substring(pj.length());
 		
-		String uploadPath = "D:\\openapi(A)\\dev\\jspstudy\\src\\main\\webapp\\";
+//		String uploadPath = "D:\\openapi(A)\\dev\\jspstudy\\src\\main\\webapp\\";
+		String uploadPath = "/Users/gimbeomjun/eclipse-workspace/projectFile/src/main/webapp/";
 		String saveFolder = "images";
 		String saveFullPath = uploadPath+saveFolder;
 
 		if (command.equals("/board/boardWrite.do")){
+			System.out.println("게시글 쓰기 ");
 
-			System.out.println("�Խ��Ǳ��ۼ� ����");
 			RequestDispatcher rd = request.getRequestDispatcher("/board/boardWrite.jsp");
 			rd.forward(request, response);
 
 		}else if (command.equals("/board/boardWriteAction.do")) {
-			
+			System.out.println("게시글 쓰기 액션 ");
 			int sizeLimit = 1024*1024;
 			
 			MultipartRequest multi = null;
@@ -66,13 +67,9 @@ public class BoardController extends HttpServlet {
 			String writer = multi.getParameter("writer");
 			
 			
-			//�����ڿ� ����� ������ ��� ��ü�� �����Ѵ�.
 			Enumeration files =  multi.getFileNames();
-			//��� ���� ��ü�� ���� �̸��� ��´�.
 			String file = (String)files.nextElement();
-			//����Ǵ� ���� �̸�
 			String fileName = multi.getFilesystemName(file);
-			//���� �����̸�
 			String originFileName = multi.getOriginalFileName(file);
 			
 			String ip = InetAddress.getLocalHost().getHostAddress();
@@ -90,8 +87,7 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/board/boardWrite.do");
 			}
 		}else if(command.equals("/board/boardList.do")) {
-			System.out.println("����Ʈ ������");
-			
+			System.out.println("게시판 리스트 ");
 			String page = request.getParameter("page");
 			if(page == null) {
 				page= "1";
@@ -131,7 +127,7 @@ public class BoardController extends HttpServlet {
 			rd.forward(request, response);
 
 		} else if (command.equals("/board/boardContent.do")) {
-			System.out.println("���뺸�� ������");
+			System.out.println("게시판 내용 ");
 			// 1. parameter�� �Ѿ��
 			String bidx = request.getParameter("bidx");
 			int bidx_ = Integer.parseInt(bidx);
@@ -140,14 +136,14 @@ public class BoardController extends HttpServlet {
 			BoardDao bd = new BoardDao();
 			BoardVo bv = bd.boardSelectOne(bidx_);
 
-			request.setAttribute("bv", bv);   // ���������� �ڿ� ����
+			request.setAttribute("bv", bv);   //
 
 			// 3. �̵���
 			RequestDispatcher rd = request.getRequestDispatcher("/board/boardContent.jsp");
 			rd.forward(request, response);
 			
 		} else if (command.equals("/board/boardModify.do")){
-			System.out.println("�Խ��� �ۼ��� ����");
+			System.out.println("게시판 수정 ");
 		
 			// 1. parameter�� �Ѿ��
 						String bidx = request.getParameter("bidx");
@@ -157,7 +153,7 @@ public class BoardController extends HttpServlet {
 						BoardDao bd = new BoardDao();
 						BoardVo bv = bd.boardSelectOne(bidx_);
 
-						request.setAttribute("bv", bv);   // ���������� �ڿ� ����
+						request.setAttribute("bv", bv);   //
 
 						// 3. �̵���
 						RequestDispatcher rd = request.getRequestDispatcher("/board/boardModify.jsp");
@@ -165,7 +161,7 @@ public class BoardController extends HttpServlet {
 						
 		}else if (command.equals("/board/boardModifyAction.do")) {
 			
-			System.out.println("�Խñ� ���� ��");
+			System.out.println("게시판 수정 완료 ");
 			
 			String bidx = request.getParameter("bidx");
 			int bidx_ = Integer.parseInt(bidx);
@@ -185,7 +181,7 @@ public class BoardController extends HttpServlet {
 			}
 			
 		} else if (command.equals("/board/boardDelete.do")) {
-			System.out.println("�Խñ� ���� ����");
+			System.out.println("게시판 삭제 ");
 			
 			String bidx = request.getParameter("bidx");
 			int bidx_ = Integer.parseInt(bidx);
@@ -199,7 +195,7 @@ public class BoardController extends HttpServlet {
 			
 		} else if (command.equals("/board/boardDeleteAction.do")) {
 			
-				System.out.println("�Խñ� ���� ��");
+				System.out.println("게시판 삭제 액션 ");
 				
 				
 				
@@ -215,7 +211,7 @@ public class BoardController extends HttpServlet {
 				}
 			
 		}else if (command.equals("/board/boardReply.do")) {
-			System.out.println("�亯 ������ ����");
+			System.out.println("답글페이지 ");
 			
 			//�Ѱܾ��� ��ϵ� ��
 			String bidx = request.getParameter("bidx");
@@ -240,7 +236,7 @@ public class BoardController extends HttpServlet {
 			rd.forward(request, response);
 			
 		}else if (command.equals("/board/boardReplyAction.do")) {
-			System.out.println("�亯 �Ϸ�");
+			System.out.println("답글페이지 액션 ");
 			
 			
 			//�Ѱܾ��� ��ϵ� ���
@@ -258,7 +254,6 @@ public class BoardController extends HttpServlet {
 			HttpSession session = request.getSession();
 			int midx = (int)session.getAttribute("midx");
 			
-			// ó���ϴ� �κп��� bv�� ����ϱ⿡ bv�� ��ü�����ϰ� ��´�.
 			BoardVo bv = new BoardVo();
 			bv.setBidx(Integer.parseInt(bidx));
 			bv.setOriginbidx(Integer.parseInt(originbidx));
@@ -273,7 +268,6 @@ public class BoardController extends HttpServlet {
 			
 			
 			
-			// ó���ϴ� �κ� ��
 			BoardDao bd = new BoardDao();
 			bd.replyBoard(bv);
 			int value = bd.replyBoard(bv);
@@ -288,26 +282,20 @@ public class BoardController extends HttpServlet {
 			
 			
 		}else if(command.equals("/board/fileDownload.do")) {
-			
-			//�����̸��� �Ѱܹ޴´�.
+			System.out.println("게시판 파일 다운로드 ");
 			String filename = request.getParameter("filename");
-			//������ ��ü ���
 			String filePath = saveFullPath + File.separator+filename;
 			
 			
-			//�ش���ġ�� �ִ� ������ �о� ���δ�.
 			FileInputStream fileInputStream = new FileInputStream(filePath);
 			
 			Path source = Paths.get(filePath);
 			String mimeType = Files.probeContentType(source);
-			//��� ������ ������ ���� ������ ��´�.
 			response.setContentType(mimeType);
 			
 			String sEncoding = new String(filename.getBytes("UTF-8"));
-			//��������� �����̸��� ��´�.
 			response.setHeader("Content-Disposition","attachment;fileName="+ sEncoding);
 			
-			//���Ͼ��� 
 			ServletOutputStream servletOutStream = response.getOutputStream();
 			byte[] b = new byte[4096];
 			int read = 0;

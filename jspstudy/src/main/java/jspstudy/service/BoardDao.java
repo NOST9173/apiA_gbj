@@ -77,8 +77,10 @@ public class BoardDao {
 //		String sql = "select * from a_board where delyn='N' order by originbidx desc, depth asc";
 //		String sql = "SELECT * FROM (SELECT ROWNUM AS rnum, A.* FROM (SELECT * FROM a_board WHERE delyn='N' " + str
 //				+ " ORDER BY ORIGINbidx desc, depth ASC) A)B WHERE rnum limit ?,?";
+		
+		// 현재 rownum으로 만든 것이 아니라 limit로 일단 해결.
 		String sql = "SELECT * FROM a_board where delyn='N'"+str+" order by originbidx desc, depth asc limit ?,? ";
-
+ 
 		try {
 
 			pstmt = conn.prepareStatement(sql);

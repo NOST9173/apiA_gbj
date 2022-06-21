@@ -215,8 +215,8 @@ public class BoardDao {
 
 		// 8��
 		String sql1 = "update a_board set depth=depth+1 where originbidx=? and depth > ?";
-		String sql2 = "insert into a_board(bidx, originbidx, depth, level_, subject, content, writer, ip, midx)"
-				+ "VALUES (bidx_b_seq.nextval,?,?,?,?,?,?,?,? )";
+		String sql2 = "insert into a_board(originbidx, depth, level_, subject, content, writer, ip, midx)"
+				+ "VALUES (?,?,?,?,?,?,?,? )";
 
 		try {
 			conn.setAutoCommit(false);
